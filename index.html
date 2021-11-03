@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtStation Catalog Creator</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>
+            ArtStation Catalog Creator
+        </h1>
+        <h2>
+            ArtStation print catalog data creator for business manager.
+        </h2>
+    </header>
+
+    <main>
+        <form action="" id="catalog">
+            
+            <fieldset>
+                <legend>Product Types</legend>
+                <input type="checkbox" name="product_types" id="art_poster">
+                <label for="art_poster">Art Poster</label>
+
+                <input type="checkbox" name="product_types" id="art_print">
+                <label for="art_print">Art Print</label>
+
+                <input type="checkbox" name="product_types" id="canvas_print">
+                <label for="canvas_print">Canvas Print</label>
+
+                <input type="checkbox" name="product_types" id="hd_metal_print">
+                <label for="hd_metal_print">HD Metal Print</label>
+
+            </fieldset>
+
+            <label for="id">ID:</label>
+            <input type="text" name="" id="id">
+
+            <label for="title">Title:</label>
+            <input type="text" name="" id="title">
+
+            <label for="description">Description:</label>
+            <input type="text" name="" id="description">
+
+            <label for="availability">Availability:</label>
+            <select name="" id="availability">
+                <option value="0">in stock</option>
+                <option value="1">available for order</option>
+                <option value="2">out of stock</option>
+            </select>
+
+            <label for="condition">Condition:</label>
+            <select name="" id="condition">
+                <option value="0">new</option>
+                <option value="1">refurbished</option>
+                <option value="2">used</option>
+            </select>
+
+            <label for="price">Price</label>
+            <input type="number" name="" id="price">
+            
+            <label for="img_path">Image Path:</label>
+            <input type="text" name="" id="img_path">
+
+            <label for="img_id">Image ID:</label>
+            <input type="text" name="" id="img_id">
+
+            <label for="brand">Brand:</label>
+            <input type="text" name="" id="brand">
+
+            <label for="google_product_category">Google Product ID:</label>
+            <input type="number" name="" id="google_product_category">
+
+            <label for="fb_product_category">Facebook Product ID:</label>
+            <input type="number" name="" id="fb_product_category">
+
+            <label for="sale_price">Sale Price:</label>
+            <input type="number" name="" id="sale_price">
+
+            <label for="sale_price_effective_date">Sale Price Effective Date:</label>
+            <input type="date" name="" id="sale_price_effective_date">
+
+            <label for="item_group_id">Item Group ID:</label>
+            <input type="text" name="item_group_id" id="">
+
+            <label for="colors">Color:</label>
+            <input list="color" name="" id="colors">
+            <datalist id="color">
+                <option value="Red">R</option>
+                <option value="Green">G</option>
+                <option value="Blue">B</option>
+            </datalist>
+
+            <label for="age_group">Age Group:</label>
+            <select name="" id="age_group">
+                <option value="0">adult</option>
+                <option value="1">all</option>
+                <option value="2">ages</option>
+                <option value="3">teen</option>
+                <option value="4">kids</option>
+                <option value="5">toddler</option>
+                <option value="6">infant</option>
+                <option value="7">newborn</option>
+            </select>
+            
+            <!--
+                <label for="material">Material:</label>
+                <input type="text" name="material" id="">
+            -->
+
+            <label for="additional_features">Additional Features:</label>
+            <input type="text" name="additional_features" id="">
+
+            <label for="decor_style">Decor Style:</label>
+            <input type="text" name="decor_style" id="">
+
+            <hr>
+
+
+            <fieldset>
+                <legend>Unit of Length</legend>
+                <input type="radio" name="length_unit" id="mm" value="mm">
+                <label for="mm">mm</label>
+
+                <input type="radio" name="length_unit" id="cm" value="cm">
+                <label for="cm">cm</label>
+
+                <input type="radio" name="length_unit" id="m" value="m">
+                <label for="m">m</label>
+
+                <input type="radio" name="length_unit" id="in" value="in">
+                <label for="in">in</label>
+
+                <input type="radio" name="length_unit" id="ft" value="ft">
+                <label for="ft">ft</label>
+            </fieldset>
+            
+            <!--
+            
+                <label for="product_length">Product Length:</label>
+                <input type="number" name="" id="product_length">
+
+                <label for="product_width">Product Width:</label>
+                <input type="number" name="" id="product_width">
+
+                <label for="product_height">Product Height:</label>
+                <input type="number" name="" id="product_height">
+
+                <label for="shape">Shape:</label>
+                <select name="" id="shape">
+                    <option value="0">Rectangle</option>
+                    <option value="1">Square</option>
+                </select>
+                
+            -->
+
+            <label for="character">Character:</label>
+            <input type="text" name="" id="character">
+
+            <label for="theme">Theme:</label>
+            <input type="text" name="" id="theme">
+
+            <!--
+                id	title	description	availability	condition	price	link	image_link	additional_image_link	brand	google_product_category	fb_product_category	sale_price	sale_price_effective_date	item_group_id	color	age_group	material	additional_features	decor_style	product_length	product_width	product_height	shape	character	theme	mount_type
+            -->
+            <button type="submit">SEND</button>
+            <button type="reset">RESET</button>
+        </form>
+        
+    </main>
+
+    <footer>
+        <p>obdegirmenci</p>
+    </footer>
+    
+    <script src="js/func.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+body {
+    background: #0f0f0f;
+    color: white;
+}
+
+#catalog {
+    margin: 12px;
+    padding: 12px;
+
+    border: 1px gray solid;
+    border-radius: 4px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+#catalog > fieldset * {
+    /*
+    display: flex;
+    flex-direction: column;
+    */
+}
+
+#catalog > hr {
+    width: 100%;
+}
