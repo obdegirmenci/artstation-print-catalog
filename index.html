@@ -10,60 +10,101 @@
 </head>
 <body>
 
-    <header>
-        <h1>
-            ArtStation Catalog Creator
-        </h1>
-        <h2>
-            ArtStation print catalog data creator for business manager.
-        </h2>
+    <header id="top">
+        <div id="gradient">
+        </div>
+        <header>
+            <div class="wrapper">
+                <h1>
+                    ArtStation Catalog Creator
+                </h1>
+                <h2>
+                    Print data creator for business manager.
+                </h2>
+            </div>
+        </header>
+        <footer>
+            <hr>
+            <div class="wrapper">
+                <p>Use the form below for create product list with preferred properties. Then copy the result and paste in your data feed.</p>
+            </div>
+        </footer>
     </header>
 
-    <main>
-        <form action="" id="catalog">
+    <main id="middle">
+        <form action="" id="catalog" class="wrapper">
             
             <fieldset>
                 <legend>Product Types</legend>
-                <input type="checkbox" name="product_types" id="art_poster">
+                <input type="checkbox" name="product_types" id="art_poster" value="art_poster" checked>
                 <label for="art_poster">Art Poster</label>
 
-                <input type="checkbox" name="product_types" id="art_print">
+                <input type="checkbox" name="product_types" id="art_print" value="art_print" checked>
                 <label for="art_print">Art Print</label>
 
-                <input type="checkbox" name="product_types" id="canvas_print">
+                <input type="checkbox" name="product_types" id="canvas_print" value="canvas_print" checked>
                 <label for="canvas_print">Canvas Print</label>
 
-                <input type="checkbox" name="product_types" id="hd_metal_print">
+                <input type="checkbox" name="product_types" id="hd_metal_print" value="hd_metal_print" checked>
                 <label for="hd_metal_print">HD Metal Print</label>
 
             </fieldset>
 
+            <fieldset name="length_unit">
+                <legend>Unit of Length</legend>
+                <input type="radio" name="length_unit" id="mm" value="mm">
+                <label for="mm">mm</label>
+
+                <input type="radio" name="length_unit" id="cm" value="cm">
+                <label for="cm">cm</label>
+
+                <input type="radio" name="length_unit" id="m" value="m">
+                <label for="m">m</label>
+
+                <input type="radio" name="length_unit" id="in" value="in" checked>
+                <label for="in">in</label>
+
+                <input type="radio" name="length_unit" id="ft" value="ft">
+                <label for="ft">ft</label>
+            </fieldset>
+
             <label for="id">ID:</label>
-            <input type="text" name="" id="id">
+            <input type="text" name="id" id="id">
 
             <label for="title">Title:</label>
-            <input type="text" name="" id="title">
+            <input type="text" name="title" id="title">
 
             <label for="description">Description:</label>
             <input type="text" name="" id="description">
 
             <label for="availability">Availability:</label>
-            <select name="" id="availability">
-                <option value="0">in stock</option>
-                <option value="1">available for order</option>
-                <option value="2">out of stock</option>
+            <select name="availability" id="availability">
+                <option value="in stock">in stock</option>
+                <option value="vailable for order" selected>available for order</option>
+                <option value="out of stock">out of stock</option>
             </select>
 
             <label for="condition">Condition:</label>
             <select name="" id="condition">
-                <option value="0">new</option>
-                <option value="1">refurbished</option>
-                <option value="2">used</option>
+                <option value="new" selected>new</option>
+                <option value="refurbished">refurbished</option>
+                <option value="used">used</option>
             </select>
 
-            <label for="price">Price</label>
-            <input type="number" name="" id="price">
-            
+            <!--
+                <label for="art_poster_price">Art Poster Price</label>
+                <input type="number" min="0.00" max="10000.00" step="0.01" name="art_poster_price" id="art_poster_price" value="0.00">
+                    
+                <label for="art_print_price">Art Print Price</label>
+                <input type="number" min="0.00" max="10000.00" step="0.01" name="art_print_price" id="art_print_price" value="0.00">
+                
+                <label for="canvas_print_price">Canvas Print Price</label>
+                <input type="number" min="0.00" max="10000.00" step="0.01" name="canvas_print_price" id="canvas_print_price" value="0.00">
+                
+                <label for="hd_metal_print_price">HD Metal Print Poster Price</label>
+                <input type="number" min="0.00" max="10000.00" step="0.01" name="hd_metal_print_price" id="hd_metal_print_price" value="0.00">  
+            -->
+
             <label for="img_path">Image Path:</label>
             <input type="text" name="" id="img_path">
 
@@ -97,15 +138,15 @@
             </datalist>
 
             <label for="age_group">Age Group:</label>
-            <select name="" id="age_group">
-                <option value="0">adult</option>
-                <option value="1">all</option>
-                <option value="2">ages</option>
-                <option value="3">teen</option>
-                <option value="4">kids</option>
-                <option value="5">toddler</option>
-                <option value="6">infant</option>
-                <option value="7">newborn</option>
+            <select name="age_group" id="age_group">
+                <option name="age_group" id="adult" value="adult">adult</option>
+                <option name="age_group" id="all" value="all" selected>all</option>
+                <option name="age_group" id="ages" value="ages">ages</option>
+                <option name="age_group" id="teen" value="teen">teen</option>
+                <option name="age_group" id="kids" value="kids">kids</option>
+                <option name="age_group" id="toddler" value="toddler">toddler</option>
+                <option name="age_group" id="infant" value="infant">infant</option>
+                <option name="age_group" id="newborn" value="newborn">newborn</option>
             </select>
             
             <!--
@@ -119,26 +160,7 @@
             <label for="decor_style">Decor Style:</label>
             <input type="text" name="decor_style" id="">
 
-            <hr>
-
-
-            <fieldset>
-                <legend>Unit of Length</legend>
-                <input type="radio" name="length_unit" id="mm" value="mm">
-                <label for="mm">mm</label>
-
-                <input type="radio" name="length_unit" id="cm" value="cm">
-                <label for="cm">cm</label>
-
-                <input type="radio" name="length_unit" id="m" value="m">
-                <label for="m">m</label>
-
-                <input type="radio" name="length_unit" id="in" value="in">
-                <label for="in">in</label>
-
-                <input type="radio" name="length_unit" id="ft" value="ft">
-                <label for="ft">ft</label>
-            </fieldset>
+            
             
             <!--
             
@@ -168,14 +190,16 @@
             <!--
                 id	title	description	availability	condition	price	link	image_link	additional_image_link	brand	google_product_category	fb_product_category	sale_price	sale_price_effective_date	item_group_id	color	age_group	material	additional_features	decor_style	product_length	product_width	product_height	shape	character	theme	mount_type
             -->
-            <button type="submit">SEND</button>
-            <button type="reset">RESET</button>
+            <button type="submit" id="submit">SEND</button>
+            <button type="reset" id="reset">RESET</button>
         </form>
         
     </main>
 
-    <footer>
-        <p>obdegirmenci</p>
+    <footer id="bottom">
+        <div class="wrapper">
+            <p>obdegirmenci</p>
+        </div>
     </footer>
     
     <script src="js/func.js"></script>

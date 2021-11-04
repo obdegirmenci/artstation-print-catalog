@@ -1,25 +1,139 @@
+:root {
+    /* Use this color as the background for your dark-on-light designs, or the text color of an inverted design. */
+    --light-shade: #F6F6F4;
+    /* Accent colors can be used to bring attention to design elements by contrasting with the rest of the palette. */
+    --light-accent: #9A807A;
+    /* This color should be eye-catching but not harsh. It can be liberally applied to your layout as its main identity.  */
+    --main-brand: #d2b9b2;
+    /* Another accent color to consider. Not all colors have to be used - sometimes a simple color scheme works best.  */
+    --dark-accent: #746A74;
+    /* Use as the text color for dark-on-light designs, or as the background for inverted designs.  */
+    --dark-shade: #2A2D36;
+
+    /* Box shadowing */
+    --box-shadow: rgba(0,0,0, 0.4);
+    /* Gradient */
+    --gradient: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, var(--box-shadow) 100%); 
+    /* Radius ratio of elements. */
+    --radius: 16px;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
-    background: #0f0f0f;
-    color: white;
+    background: var(--dark-shade);
+    color: var(--light-shade);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    
+}
+
+.wrapper {
+    width: 960px;
+    margin: auto;
+}
+
+#top {
+    background: var(--main-brand);
+    box-shadow: 0 8px 24px var(--box-shadow);
+    position: relative;
+}
+
+#gradient {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--gradient);
+    z-index: 80;
+}
+
+#top > * {
+    z-index: 90;
+}
+
+#top > header {
+    position: relative;
+	display: flow-root;
+	color: var(--main-brand);
+	padding: 24px;
+    text-shadow: 0 8px 16px var(--box-shadow);
+}
+
+#top > footer {
+    position: relative;
+	display: flow-root;
+}
+
+#top > footer hr {
+	height: 2px;
+	border: none;
+	background: linear-gradient(90deg, rgba(0,0,0,0) 0%, var(--light-accent) 50%, rgba(0,0,0,0) 100%);
+}
+#middle {
+    flex-grow: 1;
+}
+
+#bottom {
+    border-top: 1px solid var(--light-accent);
+}
+
+#top, #middle, #bottom {
+    flex-shrink: 0;
 }
 
 #catalog {
-    margin: 12px;
-    padding: 12px;
+    margin: auto;
+    padding: 24px 16px;
+    background: var(--dark-accent);
+    /*border: 1px solid var(--dark-accent);*/
+    border-radius: var(--radius);
+    box-shadow: 0 8px 16px var(--box-shadow), 0 -12px 48px var(--box-shadow) inset;
 
-    border: 1px gray solid;
-    border-radius: 4px;
+    /*
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    */
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    align-items: baseline;
+    justify-self: start;
+    gap: 8px;
 }
 
-#catalog > fieldset * {
-    /*
-    display: flex;
-    flex-direction: column;
-    */
+#catalog > label {
+    justify-self: right;
+}
+
+#catalog > input {
+    padding: 8px 12px;
+}
+
+#catalog > fieldset {
+    margin: 0;
+    grid-column: span 2;
+    border: none;
+    border-top: 1px solid;
+    justify-self: normal;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: left;
+    gap: 8px;
+}
+#catalog > fieldset > label {
+    padding: 2px;
 }
 
 #catalog > hr {
