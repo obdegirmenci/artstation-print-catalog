@@ -1,3 +1,72 @@
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/work-sans-v9-latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/work-sans-v9-latin-ext_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* work-sans-700 - latin-ext_latin */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''),
+        url('../fonts/work-sans-v9-latin-ext_latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/work-sans-v9-latin-ext_latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* work-sans-600 - latin-ext_latin */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: local(''),
+        url('../fonts/work-sans-v9-latin-ext_latin-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/work-sans-v9-latin-ext_latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* work-sans-800 - latin-ext_latin */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 800;
+    src: local(''),
+        url('../fonts/work-sans-v9-latin-ext_latin-800.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/work-sans-v9-latin-ext_latin-800.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* work-sans-600italic - latin-ext_latin */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: italic;
+    font-weight: 600;
+    src: local(''),
+        url('../fonts/work-sans-v9-latin-ext_latin-600italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/work-sans-v9-latin-ext_latin-600italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* work-sans-italic - latin-ext_latin */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/work-sans-v9-latin-ext_latin-italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/work-sans-v9-latin-ext_latin-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* work-sans-700italic - latin-ext_latin */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: italic;
+    font-weight: 700;
+    src: local(''),
+        url('../fonts/work-sans-v9-latin-ext_latin-700italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/work-sans-v9-latin-ext_latin-700italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 :root {
     /* Use this color as the background for your dark-on-light designs, or the text color of an inverted design. */
     --light-shade: #F6F6F4;
@@ -6,16 +75,18 @@
     /* This color should be eye-catching but not harsh. It can be liberally applied to your layout as its main identity.  */
     --main-brand: #d2b9b2;
     /* Another accent color to consider. Not all colors have to be used - sometimes a simple color scheme works best.  */
-    --dark-accent: #746A74;
+    /*--dark-accent: #746A74;*/
+    --dark-accent: #16181E;
     /* Use as the text color for dark-on-light designs, or as the background for inverted designs.  */
     --dark-shade: #2A2D36;
 
     /* Box shadowing */
-    --box-shadow: rgba(0,0,0, 0.4);
+    --box-shadow: rgba(0, 0, 0, 0.4);
+    --box-shadow__active: rgba(0, 0, 0, 0.6);
     /* Gradient */
-    --gradient: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, var(--box-shadow) 100%); 
+    --gradient: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, var(--box-shadow) 100%); 
     /* Radius ratio of elements. */
-    --radius: 16px;
+    --radius: 8px;
 }
 
 html, body {
@@ -23,13 +94,10 @@ html, body {
     height: 100%;
 }
 
-html {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
     background: var(--dark-shade);
     color: var(--light-shade);
+    font-family: 'Work Sans', sans-serif;
     padding: 0;
     margin: 0;
     display: flex;
@@ -44,9 +112,10 @@ body {
 }
 
 #top {
+    position: relative;
     background: var(--main-brand);
     box-shadow: 0 8px 24px var(--box-shadow);
-    position: relative;
+    border-bottom: 6px solid var(--dark-accent);
 }
 
 #gradient {
@@ -67,8 +136,8 @@ body {
     position: relative;
 	display: flow-root;
 	color: var(--main-brand);
-	padding: 24px;
     text-shadow: 0 8px 16px var(--box-shadow);
+    font-size: 14px;
 }
 
 #top > footer {
@@ -97,7 +166,7 @@ body {
     margin: auto;
     padding: 24px 16px;
     background: var(--dark-accent);
-    /*border: 1px solid var(--dark-accent);*/
+    border: 1px solid var(--dark-accent);
     border-radius: var(--radius);
     box-shadow: 0 8px 16px var(--box-shadow), 0 -12px 48px var(--box-shadow) inset;
 
@@ -107,10 +176,10 @@ body {
     align-items: flex-start;
     */
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(2, 1fr);
     align-items: baseline;
     justify-self: start;
-    gap: 8px;
+    gap: 16px;
 }
 
 #catalog > label {
@@ -125,12 +194,16 @@ body {
     margin: 0;
     grid-column: span 2;
     border: none;
-    border-top: 1px solid;
+    border-bottom: 1px solid var(--dark-shade);
     justify-self: normal;
     display: grid;
     grid-template-columns: repeat(4, auto);
     justify-content: left;
     gap: 8px;
+}
+
+#catalog > fieldset legend {
+    font-size: 14px;
 }
 #catalog > fieldset > label {
     padding: 2px;
@@ -138,4 +211,115 @@ body {
 
 #catalog > hr {
     width: 100%;
+}
+
+
+/*
+INPUT STYLES
+*/
+
+.input-container {
+    grid-column: span 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container > label {
+    font-size: 12px;
+    transition: margin 0.15s;
+}
+
+.input-container > input, .input-container > select {
+	
+    color: var(--light-accent);
+	border: none;
+	border-bottom: 1px solid var(--dark-shade);
+	outline: 0;
+	font-size: 1.1rem;
+	padding: 8px 18px;
+	background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, var(--box-shadow) 100%);
+	transition: border-color 0.15s;
+	box-shadow: 0 4px 16px var(--box-shadow);
+	
+}
+
+.input-container select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+}
+
+.input-container select option {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: var(--dark-shade);
+    border: none;
+    margin: 0;
+    padding: 0;
+    /*background-color: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, var(--box-shadow) 100%);*/
+}
+
+.input-container select option:disabled {
+    color: #ddd;
+    /*background: var(--dark-accent);*/
+}
+
+.input-container > select > option:checked {
+    background: green;
+}
+
+.input-container > input::placeholder {
+    opacity: 0.35;
+}
+
+.input-container > input:focus, .input-container > select:focus {
+	border-bottom: 1px solid var(--light-accent);
+    color: var(--light-shade);
+}
+
+.input-container:focus-within label {
+    color: var(--light-accent) !important;
+    margin-left: 14px;
+}
+
+
+
+.input-container.controls {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.controls > button {
+	background: none;
+	border: 1px solid var(--light-accent);
+	padding: 8px 16px;
+	border-radius: 16px;
+	color: var(--light-accent);
+    cursor: pointer;
+    transition: 0.15s;
+    outline: none;
+}
+
+.controls > button:hover, .controls > button:focus:hover {
+	color: var(--dark-accent);
+	background-color: var(--light-accent);
+}
+
+.controls > button:focus {
+	background-color: var(--dark-shade);
+}
+
+.controls > button:active, .controls > button:focus:active {
+    color: var(--light-accent);
+	background-color: var(--dark-shade);
+    /*border-color: var(--light-shade);*/
+    transform: translateY(2px);
+}
+
+::selection {
+    color: var(--dark-shade);
+    background-color: var(--light-shade);
 }

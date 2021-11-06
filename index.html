@@ -50,46 +50,43 @@
 
             </fieldset>
 
-            <fieldset name="length_unit">
-                <legend>Unit of Length</legend>
-                <input type="radio" name="length_unit" id="mm" value="mm">
-                <label for="mm">mm</label>
+            <div class="input-container">
+                <label for="orientation">Orientation:</label>
+                <select name="orientation" id="orientation">
+                    <option value="landscape" selected>Landscape</option>
+                    <option value="portrait">Portrait</option>
+                    <option value="square">Square</option>
+                </select>
+            </div>
 
-                <input type="radio" name="length_unit" id="cm" value="cm">
-                <label for="cm">cm</label>
+            <div class="input-container">
+                <label for="aspect_ratio">Aspect Ratio:</label>
+                <select name="aspect_ratio" id="aspect_ratio">
+                    <!-- JS -->
+                </select>
+            </div>
 
-                <input type="radio" name="length_unit" id="m" value="m">
-                <label for="m">m</label>
+            <div class="input-container">
+                <label for="size">Size:</label>
+                <select name="size" id="size">
+                    <!-- JS -->
+                </select>
+            </div>
 
-                <input type="radio" name="length_unit" id="in" value="in" checked>
-                <label for="in">in</label>
+            <div class="input-container">
+                <label for="id">ID:</label>
+                <input type="text" name="id" id="id" placeholder="aaa-bbb-ccc" value="xYz8">
+            </div>
 
-                <input type="radio" name="length_unit" id="ft" value="ft">
-                <label for="ft">ft</label>
-            </fieldset>
+            <div class="input-container">
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" placeholder="My Brillant Artwork">
+            </div>
 
-            <label for="id">ID:</label>
-            <input type="text" name="id" id="id">
-
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="title">
-
-            <label for="description">Description:</label>
-            <input type="text" name="" id="description">
-
-            <label for="availability">Availability:</label>
-            <select name="availability" id="availability">
-                <option value="in stock">in stock</option>
-                <option value="vailable for order" selected>available for order</option>
-                <option value="out of stock">out of stock</option>
-            </select>
-
-            <label for="condition">Condition:</label>
-            <select name="" id="condition">
-                <option value="new" selected>new</option>
-                <option value="refurbished">refurbished</option>
-                <option value="used">used</option>
-            </select>
+            <div class="input-container">
+                <label for="description">Description:</label>
+                <input type="text" name="" id="description" placeholder="I made this for...">
+            </div>
 
             <!--
                 <label for="art_poster_price">Art Poster Price</label>
@@ -105,63 +102,76 @@
                 <input type="number" min="0.00" max="10000.00" step="0.01" name="hd_metal_print_price" id="hd_metal_print_price" value="0.00">  
             -->
 
-            <label for="img_path">Image Path:</label>
-            <input type="text" name="" id="img_path">
+            <div class="input-container">
+                <label for="img_path">Image Path:</label>
+                <input type="text" name="" id="img_path" placeholder="000/005/048">
+            </div>
+            
+            <div class="input-container">
+                <label for="img_id">Image ID:</label>
+                <input type="text" name="" id="img_id" placeholder="123456789">
+            </div>
 
-            <label for="img_id">Image ID:</label>
-            <input type="text" name="" id="img_id">
+            <div class="input-container">
+                <label for="brand">Brand:</label>
+                <input type="text" name="" id="brand" placeholder="ArtStation">
+            </div>
 
-            <label for="brand">Brand:</label>
-            <input type="text" name="" id="brand">
+            <div class="input-container">
+                <label for="google_product_category">Google Product ID:</label>
+                <input type="number" name="google_product_category" id="google_product_category" placeholder="500044" value="500044">
+            </div>
 
-            <label for="google_product_category">Google Product ID:</label>
-            <input type="number" name="" id="google_product_category">
+            <div class="input-container">
+                <label for="fb_product_category">Facebook Product ID:</label>
+                <input type="number" name="fb_product_category" id="fb_product_category" placeholder="999" value="999">
+            </div>
 
-            <label for="fb_product_category">Facebook Product ID:</label>
-            <input type="number" name="" id="fb_product_category">
+            <!-- 
+                <div class="input-container">
+                    <label for="sale_price">Sale Price:</label>
+                    <input type="number" name="" id="sale_price">
+                </div>
+            
+            
+                <div class="input-container">
+                    <label for="sale_price_effective_date">Sale Price Effective Date:</label>
+                    <input type="date" name="" id="sale_price_effective_date">
+                </div>
+            -->
 
-            <label for="sale_price">Sale Price:</label>
-            <input type="number" name="" id="sale_price">
+            <div class="input-container">
+                <label for="item_group_id">Item Group ID:</label>
+                <input type="text" name="item_group_id" id="">
+            </div>
 
-            <label for="sale_price_effective_date">Sale Price Effective Date:</label>
-            <input type="date" name="" id="sale_price_effective_date">
-
-            <label for="item_group_id">Item Group ID:</label>
-            <input type="text" name="item_group_id" id="">
-
-            <label for="colors">Color:</label>
-            <input list="color" name="" id="colors">
-            <datalist id="color">
-                <option value="Red">R</option>
-                <option value="Green">G</option>
-                <option value="Blue">B</option>
-            </datalist>
-
-            <label for="age_group">Age Group:</label>
-            <select name="age_group" id="age_group">
-                <option name="age_group" id="adult" value="adult">adult</option>
-                <option name="age_group" id="all" value="all" selected>all</option>
-                <option name="age_group" id="ages" value="ages">ages</option>
-                <option name="age_group" id="teen" value="teen">teen</option>
-                <option name="age_group" id="kids" value="kids">kids</option>
-                <option name="age_group" id="toddler" value="toddler">toddler</option>
-                <option name="age_group" id="infant" value="infant">infant</option>
-                <option name="age_group" id="newborn" value="newborn">newborn</option>
-            </select>
+            <div class="input-container">
+                <label for="colors">Color:</label>
+                <input list="color" name="colors" id="colors" placeholder="White">
+                <datalist id="color">
+                    <option value="White">White</option>
+                    <option value="Black">Black</option>
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Blue">Blue</option>
+                </datalist>
+            </div>
             
             <!--
                 <label for="material">Material:</label>
                 <input type="text" name="material" id="">
             -->
 
-            <label for="additional_features">Additional Features:</label>
-            <input type="text" name="additional_features" id="">
+            <div class="input-container">
+                <label for="additional_features">Additional Features:</label>
+                <input type="text" name="additional_features" id="additional_features" placeholder="Rare">
+            </div>
 
-            <label for="decor_style">Decor Style:</label>
-            <input type="text" name="decor_style" id="">
+            <div class="input-container">
+                <label for="decor_style">Decor Style:</label>
+                <input type="text" name="decor_style" id="decor_style" placeholder="Modern">
+            </div>
 
-            
-            
             <!--
             
                 <label for="product_length">Product Length:</label>
@@ -181,24 +191,74 @@
                 
             -->
 
-            <label for="character">Character:</label>
-            <input type="text" name="" id="character">
+            <div class="input-container">
+                <label for="character">Character:</label>
+                <input type="text" name="character" id="character" placeholder="Trees">
+            </div>
 
-            <label for="theme">Theme:</label>
-            <input type="text" name="" id="theme">
+            <div class="input-container">
+                <label for="theme">Theme:</label>
+                <input type="text" name="theme" id="theme" placeholder="Nature">
+            </div>
 
             <!--
                 id	title	description	availability	condition	price	link	image_link	additional_image_link	brand	google_product_category	fb_product_category	sale_price	sale_price_effective_date	item_group_id	color	age_group	material	additional_features	decor_style	product_length	product_width	product_height	shape	character	theme	mount_type
             -->
-            <button type="submit" id="submit">SEND</button>
-            <button type="reset" id="reset">RESET</button>
+            
+            <div class="input-container">
+                <label for="length_unit">Unit of Length:</label>
+                <select name="length_unit" id="length_unit">
+                    <option name="length_unit" id="mm" value="mm">Millimeter</option>
+                    <option name="length_unit" id="cm" value="cm" selected>Centimeter</option>
+                    <option name="length_unit" id="m" value="m">Meter</option>
+                    <option name="length_unit" id="in" value="in">Inch</option>
+                    <option name="length_unit" id="ft" value="ft">Feet</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="age_group">Age Group:</label>
+                <select name="age_group" id="age_group">
+                    <option name="age_group" id="adult" value="adult">Adult</option>
+                    <option name="age_group" id="all" value="all" selected>All</option>
+                    <option name="age_group" id="ages" value="ages">Ages</option>
+                    <option name="age_group" id="teen" value="teen">Teen</option>
+                    <option name="age_group" id="kids" value="kids">Kids</option>
+                    <option name="age_group" id="toddler" value="toddler">Toddler</option>
+                    <option name="age_group" id="infant" value="infant">Infant</option>
+                    <option name="age_group" id="newborn" value="newborn">Newborn</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="availability">Availability:</label>
+                <select name="availability" id="availability">
+                    <option value="in stock">In stock</option>
+                    <option value="available for order" selected>Available for order</option>
+                    <option value="out of stock">Out of stock</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="condition">Condition:</label>
+                <select name="condition" id="condition">
+                    <option value="new" selected>New</option>
+                    <option value="refurbished">Refurbished</option>
+                    <option value="used">Used</option>
+                </select>
+            </div>
+
+            <div class="input-container controls">
+                <button type="submit" id="submit">Make Products</button>
+                <button type="reset" id="reset">Clear</button>
+            </div>
         </form>
         
     </main>
 
     <footer id="bottom">
         <div class="wrapper">
-            <p>obdegirmenci</p>
+            <p>2021 /// obdegirmenci</p>
         </div>
     </footer>
     
