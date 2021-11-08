@@ -53,8 +53,8 @@
             <div class="input-container">
                 <label for="orientation">Orientation:</label>
                 <select name="orientation" id="orientation">
-                    <option value="landscape" selected>Landscape</option>
-                    <option value="portrait">Portrait</option>
+                    <option value="landscape">Landscape</option>
+                    <option value="portrait" selected>Portrait</option>
                     <option value="square">Square</option>
                 </select>
             </div>
@@ -85,7 +85,7 @@
 
             <div class="input-container">
                 <label for="description">Description:</label>
-                <input type="text" name="" id="description" placeholder="I made this for...">
+                <input type="text" name="description" id="description" placeholder="I made this for...">
             </div>
 
             <!--
@@ -104,17 +104,17 @@
 
             <div class="input-container">
                 <label for="img_path">Image Path:</label>
-                <input type="text" name="" id="img_path" placeholder="000/005/048">
+                <input type="text" name="img_path" id="img_path" placeholder="000/005/048">
             </div>
             
             <div class="input-container">
                 <label for="img_id">Image ID:</label>
-                <input type="text" name="" id="img_id" placeholder="123456789">
+                <input type="text" name="img_id" id="img_id" placeholder="123456789">
             </div>
 
             <div class="input-container">
                 <label for="brand">Brand:</label>
-                <input type="text" name="" id="brand" placeholder="ArtStation">
+                <input type="text" name="brand" id="brand" placeholder="ArtStation">
             </div>
 
             <div class="input-container">
@@ -130,13 +130,13 @@
             <!-- 
                 <div class="input-container">
                     <label for="sale_price">Sale Price:</label>
-                    <input type="number" name="" id="sale_price">
+                    <input type="number" name="sale_price" id="sale_price">
                 </div>
             
             
                 <div class="input-container">
                     <label for="sale_price_effective_date">Sale Price Effective Date:</label>
-                    <input type="date" name="" id="sale_price_effective_date">
+                    <input type="date" name="sale_price_effective_date" id="sale_price_effective_date">
                 </div>
             -->
 
@@ -171,25 +171,6 @@
                 <label for="decor_style">Decor Style:</label>
                 <input type="text" name="decor_style" id="decor_style" placeholder="Modern">
             </div>
-
-            <!--
-            
-                <label for="product_length">Product Length:</label>
-                <input type="number" name="" id="product_length">
-
-                <label for="product_width">Product Width:</label>
-                <input type="number" name="" id="product_width">
-
-                <label for="product_height">Product Height:</label>
-                <input type="number" name="" id="product_height">
-
-                <label for="shape">Shape:</label>
-                <select name="" id="shape">
-                    <option value="0">Rectangle</option>
-                    <option value="1">Square</option>
-                </select>
-                
-            -->
 
             <div class="input-container">
                 <label for="character">Character:</label>
@@ -253,6 +234,10 @@
                 <button type="reset" id="reset">Clear</button>
             </div>
         </form>
+
+        <div id="sort-list">
+
+        </div>
         
     </main>
 
