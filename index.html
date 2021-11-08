@@ -53,9 +53,7 @@
             <div class="input-container">
                 <label for="orientation">Orientation:</label>
                 <select name="orientation" id="orientation">
-                    <option value="landscape">Landscape</option>
-                    <option value="portrait" selected>Portrait</option>
-                    <option value="square">Square</option>
+                    <!-- JS -->
                 </select>
             </div>
 
@@ -75,7 +73,7 @@
 
             <div class="input-container">
                 <label for="id">ID:</label>
-                <input type="text" name="id" id="id" placeholder="aaa-bbb-ccc" value="xYz8">
+                <input type="text" name="id" id="id" placeholder="aaaa-bbbb-cccc" value="xYz8">
             </div>
 
             <div class="input-container">
@@ -140,10 +138,12 @@
                 </div>
             -->
 
-            <div class="input-container">
-                <label for="item_group_id">Item Group ID:</label>
-                <input type="text" name="item_group_id" id="">
-            </div>
+            <!--
+                <div class="input-container">
+                    <label for="item_group_id">Item Group ID:</label>
+                    <input type="text" name="item_group_id" id="">
+                </div>
+            -->
 
             <div class="input-container">
                 <label for="colors">Color:</label>
@@ -190,9 +190,9 @@
                 <label for="length_unit">Unit of Length:</label>
                 <select name="length_unit" id="length_unit">
                     <option name="length_unit" id="mm" value="mm">Millimeter</option>
-                    <option name="length_unit" id="cm" value="cm" selected>Centimeter</option>
+                    <option name="length_unit" id="cm" value="cm">Centimeter</option>
                     <option name="length_unit" id="m" value="m">Meter</option>
-                    <option name="length_unit" id="in" value="in">Inch</option>
+                    <option name="length_unit" id="in" value="in" selected>Inch</option>
                     <option name="length_unit" id="ft" value="ft">Feet</option>
                 </select>
             </div>
@@ -231,7 +231,7 @@
 
             <div class="input-container controls">
                 <button type="submit" id="submit">Make Products</button>
-                <button type="reset" id="reset">Clear</button>
+                <button type="reset" id="resetbutton">Clear</button>
             </div>
         </form>
 
