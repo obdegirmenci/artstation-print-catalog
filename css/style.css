@@ -84,7 +84,7 @@
     --box-shadow: rgba(0, 0, 0, 0.4);
     --box-shadow__active: rgba(0, 0, 0, 0.6);
     /* Gradient */
-    --gradient: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, var(--box-shadow) 100%); 
+    --gradient: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, var(--box-shadow) 100%);
     /* Radius ratio of elements. */
     --radius: 8px;
 }
@@ -169,6 +169,7 @@ body {
     border: 1px solid var(--dark-accent);
     border-radius: var(--radius);
     box-shadow: 0 8px 16px var(--box-shadow), 0 -12px 48px var(--box-shadow) inset;
+    box-sizing: border-box;
 
     /*
     display: inline-flex;
@@ -322,4 +323,57 @@ INPUT STYLES
 ::selection {
     color: var(--dark-shade);
     background-color: var(--light-shade);
+}
+
+.tags {
+    list-style: none;
+    margin: 24px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.tags__item {
+    padding: 4px 14px;
+    background: var(--dark-accent);
+    color: var(--light-accent);
+    border-radius: 14px;
+    user-select: none;
+    cursor: move;
+    transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s;
+}
+
+.tags__item_drag-start {
+    opacity: 0.5;
+}
+
+.tags__item_over {
+    outline: 1px dashed;
+}
+
+.tags__item_over-left {
+    box-shadow: 40px 0 16px -16px var(--dark-shade) inset;
+}
+
+.tags__item_over-right {
+    box-shadow: -40px 0 16px -16px var(--dark-shade) inset;
+}
+
+.tags__item_dropped {
+    animation: tagTrails 2s cubic-bezier(0.16, 1, 0.3, 1) normal;
+}
+
+@keyframes tagTrails {
+    from {
+        background: var(--light-accent);
+        color: var(--dark-accent);
+    }
+    to {
+        background: var(--dark-accent);
+        color: var(--light-accent);
+    }
 }

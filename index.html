@@ -73,17 +73,17 @@
 
             <div class="input-container">
                 <label for="id">ID:</label>
-                <input type="text" name="id" id="id" placeholder="aaaa-bbbb-cccc" value="xYz8">
+                <input type="text" minlength="4" maxlength="4" pattern="[a-zA-Z0-9]{4}" name="id" id="id" placeholder="y2bE" value="xYz8" required>
             </div>
 
             <div class="input-container">
                 <label for="title">Title:</label>
-                <input type="text" name="title" id="title" placeholder="My Brillant Artwork">
+                <input type="text" maxlength="96" name="title" id="title" placeholder="My Brillant Artwork">
             </div>
 
             <div class="input-container">
                 <label for="description">Description:</label>
-                <input type="text" name="description" id="description" placeholder="I made this for...">
+                <input type="text" maxlength="256" name="description" id="description" placeholder="I made this for...">
             </div>
 
             <!--
@@ -102,12 +102,12 @@
 
             <div class="input-container">
                 <label for="img_path">Image Path:</label>
-                <input type="text" name="img_path" id="img_path" placeholder="000/005/048">
+                <input type="text" minlength="11" maxlength="11" pattern="([0-9]{3})[\/]([0-9]{3})[\/]([0-9]{3})" name="img_path" id="img_path" placeholder="000/005/048">
             </div>
             
             <div class="input-container">
                 <label for="img_id">Image ID:</label>
-                <input type="text" name="img_id" id="img_id" placeholder="123456789">
+                <input type="text" minlength="9" maxlength="9" pattern="[0-9]{9}" name="img_id" id="img_id" placeholder="123456789">
             </div>
 
             <div class="input-container">
@@ -235,8 +235,10 @@
             </div>
         </form>
 
-        <div id="sort-list">
+        <div id="sort-list" class="wrapper">
+            <ul class="tags">
 
+            </ul>
         </div>
         
     </main>

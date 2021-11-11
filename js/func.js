@@ -1,9 +1,6 @@
 function log(x) { console.log(x) };
 
-const orientations = ["landscape", "portrait", "square"];
-const defaultOrientation = orientations[0]; // [0] landscape, [1] portrait, [2] square
-
-// All available print sizes that in landscape orientation.
+// All available print sizes are in landscape orientation.
 // Portraits are calculated with on the fly just by reversing them.
 
 /**
@@ -12,17 +9,31 @@ const defaultOrientation = orientations[0]; // [0] landscape, [1] portrait, [2] 
  * @param {object} form The loaded form from page.
  * @return {array} Sortable item list.
  */
-function getSortableList(form) {
+function getSortableList(formData) {
+    let fragment = new DocumentFragment();
+    let ul = document.querySelector(".tags");
     let items = [];
             
-    for (let key of form.keys()) {
+    for (let key of formData.keys()) {
         if (key !== "product_types") {
             items.push(key);
             //log(`${key} is Sortable`);
         }
     }
 
-    return items;
+    //return items;
+    log(items);
+
+    items.forEach( item => {
+        li = document.createElement("li");
+        li.classList.add("tags__item");
+        li.draggable = true;
+        li.id = `tag-${item}`;
+        li.innerHTML = item;
+        fragment.appendChild(li);
+    })
+
+    ul.appendChild(fragment);
 }
 
 /**
@@ -50,101 +61,13 @@ function calcResolution(dimension) {
 }
 
 /**
- * Updates SELECT options based on user selections in the form.
+ * Capitalizes first letter of string.
  *
- * @param {object} el Which SELECT element will be updated. Values are "size" or "aspect_ratio".
- * @param {string} orientation The orientation value of SELECT.
- * @param {string} aspect_ratio The aspect ratio value of SELECT.
+ * @param {string} word Orientation string.
+ * @return {string} Capitalized orientation.
  */
-function updateSelect(el, orientation, aspect_ratio, form) {
-    let fragment = new DocumentFragment();
-
-    if (el.id === "size") {
-    let sizeList = [];
-        
-    for (let type of form.getAll("product_types")){
-        log("\n");
-        log(`[${type}] checked`);
-        log(`[${type}] DEFAULT SIZES:`);
-
-        Object.values(printSizes[aspect_ratio][type]).forEach( size => {
-            log(size);
-            sizeList.push(size);
-        });
-
-    }
-
-    // New size list from unique values with ordered by width
-    let sortedSizeList = [... new Set(sizeList) ].sort( (a, b) => {
-        if ( Number(a.split("x")[0]) > Number(b.split("x")[0]) ) {  return 1;  }
-        if ( Number(a.split("x")[0]) < Number(b.split("x")[0]) ) {  return -1;   }
-    });
-    
-    log("\n");
-    log(`UNIQUE SIZES: [ ${sortedSizeList.join(" | ")} ]`);
-
-    sortedSizeList.forEach( size => {
-        let visibleSize = size;
-        let option = document.createElement("option");
-
-        if (orientation === "portrait") {
-            visibleSize = size.split("x").reverse().join("x");
-        }
-
-        option.value = size;
-        option.innerHTML = `${visibleSize}: ${calcResolution(visibleSize)}`;
-        fragment.appendChild(option);
-    })
-
-
-    } else if (el.id === "aspect_ratio") {
-    for(let ratio of Object.keys(printSizes)) {
-        let option = document.createElement("option");
-
-        if (orientation === "square" && ratio === "1:1") {
-        // If is square
-        //log(ratio);
-        option.value = ratio;
-        option.innerHTML = `${ratio}`;
-        fragment.appendChild(option);
-        } else if (orientation === "landscape" && ratio !== "1:1") {
-        // If is landscape
-        //log(ratio);
-        option.value = ratio;
-        option.innerHTML = `${ratio}`;
-        fragment.appendChild(option);
-        } else if (orientation === "portrait" && ratio !== "1:1") {
-        // If is portrait
-        option.value = ratio;
-        ratio = ratio.split(":").reverse().join(":");
-        //log(ratio);
-        option.innerHTML = `${ratio}`;
-        fragment.appendChild(option);
-        }
-        
-    }
-    
-    } else if (el.id === "orientation") {
-    for (let shape of orientations) {
-
-        let option = document.createElement("option");
-        option.value = shape;
-        option.innerHTML = capitalizeFirstLetter(shape);
-
-        if (shape === orientation) {
-            option.selected = true;
-        }
-
-        fragment.appendChild(option);
-    }
-
-    }
-
-    el.replaceChildren(fragment);
-}
-
-function capitalizeFirstLetter(string) {
-    return string[0].toUpperCase() + string.slice(1);
+ function capitalizeFirstLetter(word) {
+    return word[0].toUpperCase() + word.slice(1);
 }
 
 /**
@@ -154,9 +77,9 @@ function capitalizeFirstLetter(string) {
  * @param {string} userId ID that will be part of the SKU.
  * @return {string} SKU in AAAA-BBBB-CCCC format.
  */
-function createSKU(print, userId) {
+ function createSKU(print, id) {
     let sku1;
-    let sku2 = userId;
+    let sku2 = id;
     let sku3 = "0101";
 
     switch (print) {
@@ -180,17 +103,168 @@ function createSKU(print, userId) {
     return newId;
 }
 
-function correctRatio(userRatio, formData) {
-// Correct the ratio if is portrait just before creating result.
-    if (userRatio === "portrait") {
+/**
+ * Corrects the aspect ratio while sending.
+ *
+ * @param {object} formData Actual form data.
+ */
+function correctAspectRatio(formData) {
+    let orientation = formData.get("orientation");
+
+    // Correct the ratio if is portrait just before creating result.
+    if (orientation === "portrait") {
         let oldRatio = formData.get("aspect_ratio");
         correctedRatio = oldRatio.split(":").reverse().join(":");
         formData.set("aspect_ratio", correctedRatio);
         log(`${formData.get("aspect_ratio")} (converted from ${oldRatio})`);
-    } else {
-        //log("neeeein");
     }
 }
+
+/**
+ * Corrects the size while sending.
+ * @param {string} size Active size on form.
+ * @param {object} formData Actual form data.
+ */
+function correctSize(size, formData) {
+    let orientation = formData.get("orientation");
+    
+    if (orientation === "portrait") {
+        let oldSize = size;
+        correctedSize = oldSize.split("x").reverse().join("x");
+        formData.set("size", correctedSize);
+        log(`${formData.get("size")} (converted from ${oldSize})`);
+    } else {
+        formData.set("size", size);
+    }
+}
+
+/**
+ * Gets current form data
+ *
+ * @param {object} form Form that will be source.
+ * @return {object} Form data.
+ */
+function getFormData(form) {
+    return new FormData(form);
+}
+
+const orientations = ["landscape", "portrait", "square"];
+const defaultOrientation = orientations[0]; // [0] landscape, [1] portrait, [2] square
+
+/**
+ * Updates orientation SELECT.
+ *
+ * @param {object} el The element that will be updated.
+ */
+function updateOrientation(el) {
+    let fragment = new DocumentFragment();
+
+    for (let shape of orientations) {
+        let option = document.createElement("option");
+        option.value = shape;
+        option.innerHTML = capitalizeFirstLetter(shape);
+
+        if (shape === defaultOrientation) {
+            option.selected = true;
+        }
+
+        fragment.appendChild(option);
+    }
+
+    el.replaceChildren(fragment);
+}
+
+/**
+ * Updates aspect ratio SELECT.
+ *
+ * @param {object} el The element that will be updated.
+ * @param {object} formData Actual form data.
+ */
+ function updateAspectRatio(el, formData) {
+    let fragment = new DocumentFragment();
+    let orientation = formData.get("orientation");
+
+    for(let aspectRatio of Object.keys(printSizes)) {
+        let option = document.createElement("option");
+
+        if (orientation === "square" && aspectRatio === "1:1") {
+            // If is square
+
+            option.value = aspectRatio;
+            option.innerHTML = `${aspectRatio}`;
+            fragment.appendChild(option);
+
+        } else if (orientation === "landscape" && aspectRatio !== "1:1") {
+            // If is landscape
+
+            option.value = aspectRatio;
+            option.innerHTML = `${aspectRatio}`;
+            fragment.appendChild(option);
+
+        } else if (orientation === "portrait" && aspectRatio !== "1:1") {
+            // If is portrait
+
+            option.value = aspectRatio;
+            aspectRatio = aspectRatio.split(":").reverse().join(":");
+            option.innerHTML = `${aspectRatio}`;
+            fragment.appendChild(option);
+        }
+        
+    }
+
+    el.replaceChildren(fragment);
+}
+
+/**
+ * Updates size SELECT.
+ *
+ * @param {object} el The element that will be updated.
+ * @param {object} formData Actual form data.
+ */
+function updateSize(el, formData) {
+    let fragment = new DocumentFragment();
+    let orientation = formData.get("orientation");
+    let aspectRatio = formData.get("aspect_ratio");
+    let specificSizes = []; // Specific sizes by product type.
+        
+    for (let type of formData.getAll("product_types")){
+        log("\n");
+        log(`[${type}] checked`);
+        log(`[${type}] DEFAULT SIZES:`);
+
+        Object.values(printSizes[aspectRatio][type]).forEach( size => {
+            log(size);
+            specificSizes.push(size);
+        });
+    }
+
+    // TODO. Don't exec if size count is 1.
+    // New list from unique values with ordered by width.
+    let uniqueSizes = [... new Set(specificSizes) ].sort( (a, b) => {
+        if ( Number(a.split("x")[0]) > Number(b.split("x")[0]) ) {  return 1;  }
+        if ( Number(a.split("x")[0]) < Number(b.split("x")[0]) ) {  return -1;   }
+    });
+
+    log("\n");
+    log(`UNIQUE SIZES: [ ${uniqueSizes.join(" | ")} ]`);
+
+    // Fill the SELECT with new OPTIONs.
+    uniqueSizes.forEach( size => {
+        let visibleSize = size;
+        let option = document.createElement("option");
+
+        if (orientation === "portrait") {
+            visibleSize = size.split("x").reverse().join("x");
+        }
+
+        option.value = size;
+        option.innerHTML = `${visibleSize}: ${calcResolution(visibleSize)}`;
+        fragment.appendChild(option);
+    });
+
+    el.replaceChildren(fragment);
+}
+
 
 
 document.addEventListener('DOMContentLoaded', pageReady(), false);
@@ -198,19 +272,20 @@ document.addEventListener('DOMContentLoaded', pageReady(), false);
 function pageReady() {
     const form = document.getElementById("catalog");
     const formActions = document.querySelector(".controls");
-    //const submitButton = document.getElementById("submit");
-    //const userTypes = document.getElementsByTagName("product_types");
-    const userOrientation = document.getElementById("orientation");
-    const userAspectRatio = document.getElementById("aspect_ratio");
-    const userSize= document.getElementById("size");
+    const inptOrientation = document.getElementById("orientation");
+    const inptAspectRatio = document.getElementById("aspect_ratio");
+    const inptSize= document.getElementById("size");
+    let data = getFormData(form);
     
     function initializeForm() {
-        updateSelect(userOrientation, defaultOrientation);
-        updateSelect(userAspectRatio, userOrientation.value);
-        updateSelect(userSize, userOrientation.value, userAspectRatio.value, data);
+        updateOrientation(inptOrientation);
+        
+        // Retrieve latest status of form after it initialized. Otherwise the update funcs tries to work with empty inputs.
+        data = getFormData(form);
+        updateAspectRatio(inptAspectRatio, data);
+        data = getFormData(form);
+        updateSize(inptSize, data);
     }
-
-    let data = new FormData(form);
     
     // Initialize the Form.
     initializeForm();
@@ -219,20 +294,28 @@ function pageReady() {
 
     // Check changes for update the fields.
     form.addEventListener('change', e => {
-        data = new FormData(form);
+        data = getFormData(form);
 
         switch (e.target.name) {
             case "product_types":
-                updateSelect(userSize, userOrientation.value, userAspectRatio.value, data);
+                // Checkbox control
+                let activePrints = data.getAll("product_types").length;
+                if (activePrints < 1) {
+                    log("PLEASE SELECT PRINT AT LEAST ONE");
+                    e.target.checked = true;
+                } else {
+                    updateSize(inptSize, data);
+                }
                 break;
             case "orientation":
                 log(`${e.target.value} is selected`);
-                updateSelect(userAspectRatio, userOrientation.value, userAspectRatio.value);
-                updateSelect(userSize, userOrientation.value, userAspectRatio.value, data);
+                updateAspectRatio(inptAspectRatio, data);
+                data = getFormData(form);
+                updateSize(inptSize, data);
                 break;
             case "aspect_ratio":
                 log(`${e.target.value} is selected`);
-                updateSelect(userSize, userOrientation.value, userAspectRatio.value, data);
+                updateSize(inptSize, data);
                 break;
                 
             default:
@@ -246,25 +329,25 @@ function pageReady() {
             // Don't submit to anywhere
             e.preventDefault();
 
-            // Update the data with current form values
-            data = new FormData(form);
-            let userId = data.get("id");
-            let userSize = data.get("size");
+            data = getFormData(form);
+            let activeId = data.get("id");
+            let activeSize = data.get("size");
+            let originalAspectRatio = data.get("aspect_ratio");
 
-            //correctRatio(userOrientation.value, data);
+            correctAspectRatio(data);
 
             // Produce as much as given Product Type
             for (let print of data.getAll("product_types")) {
 
-                Object.values(printSizes[data.get("aspect_ratio")][print]).forEach( size => {
+                Object.values(printSizes[originalAspectRatio][print]).forEach( size => {
 
                     // Max size control
-                    if (userSize < size) {
+                    if (activeSize < size) {
                         log("\n");
                         log(`[${size}] SKIPPED`);
                     } else {
                         log("\n");
-                        log(`[${print}]-[${userSize}] in process.`);
+                        log(`[${print}]-[${activeSize}] in process.`);
                         log(`[${size}] PASSED`);
 
                         // Don't include Product Type.
@@ -273,33 +356,27 @@ function pageReady() {
                         }
                         
                         // Change ID to formatted SKU.
-                        data.set("id", createSKU(print, userId));
+                        data.set("id", createSKU(print, activeId));
 
-                        // Match product's size produced size.
-                        //size.split("x").reverse().join("x")
-                        data.set("size", size);
-        
-                        
+                        // Match product's size to produced size.
+                        correctSize(size, data);
         
                         let result = [];
                         for (let value of data.values()) {
-                            
                             result.push(value);
                         }
                         let newResult = result.join(", ");
                         log(newResult);
                     }
                 });
-                
             }
-
-
-            
         } else if (e.target.id == "resetbutton") {
+            // Don't reset until cleaning
             e.preventDefault();
 
-            while (userOrientation.firstChild) userOrientation.removeChild(userOrientation.firstChild);
-            while (userAspectRatio.firstChild) userAspectRatio.removeChild(userAspectRatio.firstChild);
+            // Clean inputs.
+            while (inptOrientation.firstChild) inptOrientation.removeChild(inptOrientation.firstChild);
+            while (inptAspectRatio.firstChild) inptAspectRatio.removeChild(inptAspectRatio.firstChild);
 
             form.reset();
 
@@ -307,4 +384,92 @@ function pageReady() {
             initializeForm();
         }
     });
+
+    // Draggable tags
+    let dragging = null;
+
+    function handleDragStart(e) {
+        let target = getLi(e.target);
+
+        dragging = target;
+        e.dataTransfer.setData('text/plain', null);
+        target.classList.add("tags__item_drag-start");
+        e.dataTransfer.setDragImage(target, -6, -14);
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        let target = getLi(e.target);
+
+        if (target && target !== dragging) {
+            target.classList.add("tags__item_over");
+            let bounding = target.getBoundingClientRect()
+            let offset = bounding.x + (bounding.width/2);
+    
+            if ( e.clientX - offset > 0 ) {
+                target.classList.add("tags__item_over-right");
+                target.classList.remove("tags__item_over-left");
+            } else {
+                target.classList.add("tags__item_over-left");
+                target.classList.remove("tags__item_over-right");
+            }
+        }
+    }
+
+    function handleDragEnd(e) {
+        let target = getLi(e.target);
+
+        if (target) {
+            target.classList.remove("tags__item_drag-start");
+            target.classList.add("tags__item_dropped");
+        }
+    }
+
+    function handleDragLeave(e) {
+        let target = getLi(e.target);
+
+        if (target && target !== dragging) {
+            target.classList.remove("tags__item_over");
+            target.classList.remove("tags__item_over-left");
+            target.classList.remove("tags__item_over-right");
+        }
+        
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        let target = getLi( e.target );
+
+        if (target && target !== dragging) {
+            target.classList.remove("tags__item_over");
+            
+            if ( target.classList.contains("tags__item_over-right") ) {
+                target.classList.remove("tags__item_over-right");
+                target.parentNode.insertBefore(dragging, e.target.nextSibling);
+            } else {
+                target.classList.remove("tags__item_over-left");
+                target.parentNode.insertBefore(dragging, e.target);
+            }
+        }
+    }
+
+    function getLi(target) {
+        if (target.nodeName.toLowerCase() == "li") {
+            return target;
+        } else {
+            return false;
+        }
+    }
+
+    function handleAnimation(e) {
+        e.target.classList.remove("tags__item_dropped");
+    }
+
+    const tag = document.querySelector(".tags");
+    tag.addEventListener('dragstart', handleDragStart);
+    tag.addEventListener('dragend', handleDragEnd);
+    tag.addEventListener('dragover', handleDragOver);
+    tag.addEventListener('dragleave', handleDragLeave);
+    tag.addEventListener('drop', handleDrop);
+    tag.addEventListener('animationend', handleAnimation);
 }
