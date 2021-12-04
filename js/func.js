@@ -13,6 +13,8 @@ function getSortableList(formData) {
     let fragment = new DocumentFragment();
     let ul = document.querySelector(".tags");
     let items = [];
+    let extraItems = ["AAAAAAAAA", "BBBB", "BBB"];
+    extraItems.forEach(i => items.push(i) );
             
     for (let key of formData.keys()) {
         if (key !== "product_types") {
@@ -29,6 +31,7 @@ function getSortableList(formData) {
         li.classList.add("tags__item");
         li.draggable = true;
         li.id = `tag-${item}`;
+        li.setAttribute("data-tag", item);
         li.innerHTML = item;
         fragment.appendChild(li);
     })
@@ -360,13 +363,18 @@ function pageReady() {
 
                         // Match product's size to produced size.
                         correctSize(size, data);
-        
-                        let result = [];
-                        for (let value of data.values()) {
-                            result.push(value);
+
+                        let result = Array.from(data.entries());
+
+                        // Reorder the result by user input.
+                        let sortOrder = createTagCloud();
+                        let orderedResult = Object.fromEntries( sorter(result, sortOrder) );
+                        createResult(orderedResult);
+                        /*
+                        for(let [key, val] of Object.entries(orderedResult)) {
+                            log(`${key}: ${val}`);
                         }
-                        let newResult = result.join(", ");
-                        log(newResult);
+                        */ 
                     }
                 });
             }
@@ -384,6 +392,23 @@ function pageReady() {
             initializeForm();
         }
     });
+
+    function createResult(result) {
+        let fragment = new DocumentFragment();
+        let ul = document.querySelector(".lines");
+        let li = document.createElement("li");
+
+        let serializedResult = [];
+
+        for(let [key, val] of Object.entries(result)) {
+            //log(`${key}: ${val}`);
+            serializedResult.push(val);
+        }
+        
+        li.innerHTML = serializedResult;
+        fragment.appendChild(li);
+        ul.appendChild(fragment);
+    }
 
     // Draggable tags
     let dragging = null;
@@ -406,7 +431,7 @@ function pageReady() {
             let bounding = target.getBoundingClientRect()
             let offset = bounding.x + (bounding.width/2);
     
-            if ( e.clientX - offset > 0 ) {
+            if (e.clientX - offset > 0) {
                 target.classList.add("tags__item_over-right");
                 target.classList.remove("tags__item_over-left");
             } else {
@@ -433,12 +458,11 @@ function pageReady() {
             target.classList.remove("tags__item_over-left");
             target.classList.remove("tags__item_over-right");
         }
-        
     }
 
     function handleDrop(e) {
         e.preventDefault();
-        let target = getLi( e.target );
+        let target = getLi(e.target);
 
         if (target && target !== dragging) {
             target.classList.remove("tags__item_over");
@@ -472,4 +496,31 @@ function pageReady() {
     tag.addEventListener('dragleave', handleDragLeave);
     tag.addEventListener('drop', handleDrop);
     tag.addEventListener('animationend', handleAnimation);
+
+    function tagCallback(mutationsList, observer) {
+        for(const mutation of mutationsList) {
+            if (mutation.type === "childList" && mutation.addedNodes.length) {
+                createTagCloud();
+            }
+        }
+    }
+
+    const tagObserverCfg = { attributes: false, childList: true, subtree: false };
+    const tagObserver = new MutationObserver(tagCallback);
+    tagObserver.observe(tag, tagObserverCfg);
+
+    function createTagCloud() {
+        let tagEl = Array.from(document.querySelectorAll("[data-tag]"));
+        let tagCloud = [];
+
+        tagEl.forEach(li => { tagCloud.push(li.getAttribute("data-tag")) });
+
+        return tagCloud;
+    }
+}
+
+function sorter(arr, cfg) {
+    return arr.sort((a, b) => {
+        return cfg.indexOf(a[0]) - cfg.indexOf(b[0]);
+    })
 }

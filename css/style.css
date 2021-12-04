@@ -67,6 +67,14 @@
         url('../fonts/work-sans-v9-latin-ext_latin-700italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+@font-face {
+    font-family: 'Share Tech Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/ShareTechMono-Regular.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
+}
+
 :root {
     /* Use this color as the background for your dark-on-light designs, or the text color of an inverted design. */
     --light-shade: #F6F6F4;
@@ -376,4 +384,19 @@ INPUT STYLES
         background: var(--dark-accent);
         color: var(--light-accent);
     }
+}
+
+.lines {
+	list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+	background: var(--dark-accent);
+	color: var(--light-accent);
+	font-family: "Share Tech Mono";
+	border-radius: 14px;
+	margin: 0;
+	padding: 16px 16px;
+	cursor: copy;
+	font-size: 14px;
 }
